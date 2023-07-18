@@ -9,7 +9,6 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - ./service
       - docker build -t 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/oio:latest .
       - docker tag 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/oio:latest
 
@@ -22,6 +21,6 @@ phases:
 
 artifacts:
   files:
-    - .service/imagedefinitions.json
+    - imagedefinitions.json
     - '**/*'
   name: BuildService
