@@ -1,10 +1,10 @@
 version: 0.2
 
 phases:
- pre_build:
-  commands:
-    - echo Logging in to Amazon ECR...
-    - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com
 
   build:
     commands:
@@ -12,9 +12,26 @@ phases:
       - echo Building the Docker image...
       - docker build -t 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest .
       - docker tag 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest
+
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest
 
+artifacts:
+  files:
+    - '**/*'
+
+  # 存储构建产物到 Amazon S3
+  discard-paths: yes
+  base-directory: '/codebuild/output'
+  name: 'my-spring-boot-project-repo'
+  packaging: zip
+  path: '/codebuild/output/my-spring-boot-project-repo.zip'
+  secondary-artifacts:
+    - my-spring-boot-project-repo:
+        files:
+          - '**/*'
+        base-directory: '/codebuild/output'
+        discard-paths: no
