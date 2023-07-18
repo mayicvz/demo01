@@ -1,6 +1,5 @@
 FROM openjdk:11.0.9.1
 
-MAINTAINER pateluday07@gmail.com
 
 VOLUME /tmp
 
@@ -10,6 +9,4 @@ COPY wait-for-mysql.sh /wait-for-mysql.sh
 
 RUN chmod +x /wait-for-mysql.sh
 
-ENTRYPOINT ["/wait-for-mysql.sh"]
-
-CMD ["java","-jar","/docker-mysql-springboot-demo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "/wait-for-mysql.sh && java -jar /docker-mysql-springboot-demo-0.0.1-SNAPSHOT.jar"]
