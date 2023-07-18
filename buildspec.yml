@@ -18,12 +18,5 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest
-
-
 artifacts:
-  files:
-    - '**/*'
-  base-directory: /codebuild/output
-  name: my-spring-boot-project-repo
-  discard-paths: no
-
+  files: imagedefinitions.json
