@@ -19,19 +19,11 @@ phases:
       - echo Pushing the Docker image...
       - docker push 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/my-spring-boot-project-repo:latest
 
+
 artifacts:
   files:
     - '**/*'
+  base-directory: /codebuild/output
+  name: my-spring-boot-project-repo
+  discard-paths: no
 
-  # 存储构建产物到 Amazon S3
-  discard-paths: yes
-  base-directory: '/codebuild/output'
-  name: 'my-spring-boot-project-repo'
-  packaging: zip
-  path: '/codebuild/output/my-spring-boot-project-repo.zip'
-  secondary-artifacts:
-    - my-spring-boot-project-repo:
-        files:
-          - '**/*'
-        base-directory: '/codebuild/output'
-        discard-paths: no
