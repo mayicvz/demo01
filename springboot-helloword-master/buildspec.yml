@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+  build:
+    commands:
+      - mvn package
+artifacts:
+  type: zip
+  files:
+    - 'appspec.yml'
+    - 'target/report.jar'
