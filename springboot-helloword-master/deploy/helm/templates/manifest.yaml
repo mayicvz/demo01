@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-helm_hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helm_hello
+  template:
+    metadata:
+      labels:
+        app: helm_hello
+    spec:
+      containers:
+        - name: helm_hello
+          image: 112046827773.dkr.ecr.ap-northeast-1.amazonaws.com/oio:latest
+          imagePullPolicy: Always
+          env:
+            - name: "SERVER_PORT"
+              value: "8089"
+          ports:
+            - name: http
+              containerPort: 8089
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-helm_hello
+spec:
+  ports:
+    - port: 8089
+      targetPort: 8089
+  selector:
+    app: helm_hello
+
+---

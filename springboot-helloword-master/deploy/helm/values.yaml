@@ -1,0 +1,5 @@
+hello:
+  podMemorySize: "3800Mi"
+  podCpuSize: 1
+  javaOpts: "-XX:InitialRAMPercentage=75.0 -XX:MaxRAMPercentage=75.0 -XX:MinRAMPercentage=75.0"
+  logConfig: "classpath:log4j2.xml"
