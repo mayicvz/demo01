@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:corretto8
 
 COPY target/spring-boot-helloworld-quick-0.0.1-SNAPSHOT.jar /app.jar
 
